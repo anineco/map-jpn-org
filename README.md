@@ -17,14 +17,48 @@ POIの例として、国土地理院のサイトで公開されている[日本�
 | Bing Maps | https://anineco.nyanta.jp/map-jpn-org/bmap_geojson.html |
 | Mapbox GL JS | https://anineco.nyanta.jp/map-jpn-org/mmap_geojson.html |
 
-なお、Google Maps、Bing Mapsのコード例を用いる場合は、HTMLファイル中の'\_YOUR_API_KEY\_'を各自で取得したAPI KEYに書き換える必要がある。
+注意：Google Maps、Bing Mapsのコード例を用いる場合は、HTMLファイル中の'\_YOUR_API_KEY\_'を各自で取得したAPI KEYに書き換える必要がある。
 
-次の例は、'mt.geojson'を変換して作成したMVTファイルを読み込んで、同様の表示を行う。
+次の例は、'mt.geojson'を変換して作成したMVTファイル（https://anineco.nyanta.jp/map-jpn-org/mt/{z}/{x}/{y}.pbf）を読み込んで、同様の表示を行う。
 
 | JSライブラリ | 表示例 |
 | ------------- | ------------- |
 | OpenLayers | https://anineco.nyanta.jp/map-jpn-org/omap_pbf.html |
 | Mapbox GL JS | https://anineco.nyanta.jp/map-jpn-org/mmap_pbf.html |
+
+なお、GeoJSONファイル読み込みをMVTファイル読み込みに変更するための差分は以下の通りである。どちらもごく一部の変更だけで済む。
+
+- OpenLayers
+```
+182,185c182,185
+<       const sanmei = new ol.layer.Vector({
+<         source: new ol.source.Vector({
+<           url: 'mt.geojson',
+<           format: new ol.format.GeoJSON()
+---
+>       const sanmei = new ol.layer.VectorTile({
+>         source: new ol.source.VectorTile({
+>           url: 'mt/{z}/{x}/{y}.pbf',
+>           format: new ol.format.MVT()
+206c206
+<         const lonlat = ol.proj.toLonLat(feature.getGeometry().getCoordinates());
+---
+>         const lonlat = ol.proj.toLonLat(feature.getFlatCoordinates());
+
+```
+
+- Mapbox GL JS
+```
+73,74c73,75
+<           'type': 'geojson',
+<           'data': 'mt.geojson'
+---
+>           'type': 'vector',
+>           'tiles': [ 'https://anineco.nyanta.jp/map-jpn-org/mt/{z}/{x}/{y}.pbf' ],
+>           'maxzoom': 14
+78a80
+>           'source-layer': 'mt',
+```
 
 ## データファイルの作成方法
 GeoJSONファイルからMVTファイルの変換には、[tippecanoe](https://github.com/mapbox/tippecanoe)を用いる。
