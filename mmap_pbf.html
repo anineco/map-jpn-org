@@ -69,12 +69,14 @@
 
       map.on('load', function() {
         map.addSource('sanmei', {
-          'type': 'geojson',
-          'data': 'mt.geojson'
+          'type': 'vector',
+          'tiles': [ 'https://anineco.nyanta.jp/map-jpn-org/mt/{z}/{x}/{y}.pbf' ],
+          'maxzoom': 14
         });
         map.addLayer({
           'id': 'summit',
           'source': 'sanmei',
+          'source-layer': 'mt',
           'type': 'symbol',
           'layout': {
             'icon-image': 'icon_summit',
