@@ -10,23 +10,23 @@ POIの例として、国土地理院のサイトで公開されている[日本�
 いずれも、'mt.geojson'を読み込み、地図画像を背景として、山の位置にアイコンと山名を表示する。アイコンをクリックすると、山名に加えてよみがなや緯度、経度、標高をポップアップで表示する。いくつかの例では、山名が密集して表示が重なる場合に間引き表示（decluttering）を行う。最新版のChrome、Edge、Firefix、SafariおよびIE11で表示できる。
 
 | JSライブラリ | 表示例 |
-| ------------- | ------------- |
-| Leaflet | https://anineco.nyanta.jp/map-jpn-org/lmap_geojson.html |
-| OpenLayers | https://anineco.nyanta.jp/map-jpn-org/omap_geojson.html |
-| Google Maps | https://anineco.nyanta.jp/map-jpn-org/gmap_geojson.html |
-| Bing Maps | https://anineco.nyanta.jp/map-jpn-org/bmap_geojson.html |
-| Mapbox GL JS | https://anineco.nyanta.jp/map-jpn-org/mmap_geojson.html |
+|:---|:---|
+|Leaflet|[lmap_geojson.html](https://anineco.nyanta.jp/map-jpn-org/lmap_geojson.html)|
+|OpenLayers|[omap_geojson.html](https://anineco.nyanta.jp/map-jpn-org/omap_geojson.html)|
+|Google Maps|[gmap_geojson.html](https://anineco.nyanta.jp/map-jpn-org/gmap_geojson.html)|
+|Bing Maps|[bmap_geojson.html](https://anineco.nyanta.jp/map-jpn-org/bmap_geojson.html)|
+|Mapbox GL JS|[mmap_geojson.html](https://anineco.nyanta.jp/map-jpn-org/mmap_geojson.html)|
 
 注意：Google Maps、Bing Mapsのコード例を用いる場合は、HTMLファイル中の'\_YOUR_API_KEY\_'を各自で取得したAPI KEYに書き換える必要がある。
 
 次の例は、'mt.geojson'を変換して作成したMVTファイル（https://anineco.nyanta.jp/map-jpn-org/mt/{z}/{x}/{y}.pbf）を読み込んで、同様の表示を行う。
 
 | JSライブラリ | 表示例 |
-| ------------- | ------------- |
-| OpenLayers | https://anineco.nyanta.jp/map-jpn-org/omap_pbf.html |
-| Mapbox GL JS | https://anineco.nyanta.jp/map-jpn-org/mmap_pbf.html |
+|:---|:---|
+|OpenLayers|[omap_pbf.html](https://anineco.nyanta.jp/map-jpn-org/omap_pbf.html)|
+|Mapbox GL JS|[mmap_pbf.html](https://anineco.nyanta.jp/map-jpn-org/mmap_pbf.html)|
 
-なお、GeoJSONファイル読み込みをMVTファイル読み込みに変更するための差分は以下の通りである。どちらもごく一部の変更だけで済む。
+なお、GeoJSONファイル読み込みをMVTファイル読み込みに変更するための差分は以下の通り。どちらもごく一部の変更だけで済む。
 
 - OpenLayers
 ```
