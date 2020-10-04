@@ -24,7 +24,7 @@ POIの例として、国土地理院のサイトで公開されている[日本�
 | JSライブラリ | 表示例 |
 | ------------- | ------------- |
 | OpenLayers | https://anineco.nyanta.jp/map-jpn-org/omap_pbf.html |
-| Mapbox GL JS | https://anineco.nyanta.jp/map-jpn-org/omap_pbf.html |
+| Mapbox GL JS | https://anineco.nyanta.jp/map-jpn-org/mmap_pbf.html |
 
 ## データファイルの作成方法
 GeoJSONファイルからMVTファイルの変換には、[tippecanoe](https://github.com/mapbox/tippecanoe)を用いる。
