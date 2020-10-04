@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>山名一覧</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+      integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+      crossorigin="">
+    <style>
+      body {
+        margin: 0;
+      }
+      #map {
+        width: 100%;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+      }
+      .leaflet-popup h2 {
+        margin: 0;
+        padding: 0 2em 0 0;
+        font-size: 12px;
+        font-weight: bold;
+        color: red;
+      }
+      .leaflet-popup td {
+        font-size: 12px;
+        padding: 0;
+      }
+      .leaflet-popup td:first-child {
+        padding-right: 1em;
+        color: blue;
+      }
+      .leaflet-tooltip {
+        margin: 0;
+        padding: 0;
+        background-color: rgba(255, 255, 255, 0.8);
+        color: blue;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=fetch"></script>
+    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+      integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+      crossorigin=""></script>
+    <script>
+      const param = {
+        lon: 138.9853, lat: 36.5039, zoom: 10
+      };
+
+      const map = L.map('map', {
+        center: [param.lat, param.lon],
+        zoom: param.zoom,
+        minZoom: 2,
+        maxZoom: 18
+      });
+      const std = L.tileLayer('https://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png', {
+        attribution: '<a href="https://maps.gsi.go.jp/development/ichiran.html">地理院タイル</a>'
+      });
+      const pale = L.tileLayer('https://cyberjapandata.gsi.go.jp/xyz/pale/{z}/{x}/{y}.png', {
+        attribution: '<a href="https://maps.gsi.go.jp/development/ichiran.html">地理院タイル</a>'
+      });
+      const seamlessphoto = L.tileLayer('https://cyberjapandata.gsi.go.jp/xyz/seamlessphoto/{z}/{x}/{y}.jpg', {
+        attribution: '<a href="https://maps.gsi.go.jp/development/ichiran.html">地理院タイル</a>'
+      });
+      map.addLayer(std);
+
+      function todms(deg) {
+        const ss = Math.round(deg * 3600);
+        const d = Math.floor(ss / 3600);
+        const m = ('0' + Math.floor((ss % 3600) / 60)).substr(-2);
+        const s = ('0' + ss % 60).substr(-2);
+        return d + '°' + m + '′' + s + '″';
+      }
+
+      const marker_opts = {
+        icon: L.icon({
+          iconUrl: 'https://map.jpn.org/share/952015.png',
+          iconSize: [24, 24],
+          iconAnchor: [12, 12]
+        })
+      };
+      const tooltip_opts = {
+        permanent: true,
+        direction: 'left',
+        offset: L.point(-15,0),
+        opacity: 0.8
+      };
+
+      fetch('mt.geojson').then(function (response) {
+        return response.json();
+      }).then(function (json) {
+        const sanmei = L.geoJSON(json, {
+          pointToLayer: function (feature, latlng) {
+            return L.marker(latlng, marker_opts)
+              .bindTooltip(feature.properties.name, tooltip_opts);
+          }
+        }).bindPopup(function (layer) {
+          const feature = layer.feature;
+          const loc = layer.getLatLng();
+          return '<h2>' + feature.properties.name
+            + '</h2><table><tbody><tr><td>よみ</td><td>' + feature.properties.kana
+            + '</td></tr><tr><td>標高</td><td>' + feature.properties.alt
+            + 'm</td></tr><tr><td>緯度</td><td>' + todms(loc.lat)
+            + '</td></tr><tr><td>経度</td><td>' + todms(loc.lng)
+            + '</td></tr><tr><td>ID</td><td>' + feature.id
+            + '</td></tr></tbody></table>';
+        }).addTo(map);
+        L.control.layers(
+          { '標準': std, '淡色': pale, '写真': seamlessphoto },
+          { '山名': sanmei }
+        ).addTo(map);
+      });
+    </script>
+  </body>
+</html>

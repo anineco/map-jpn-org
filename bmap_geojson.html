@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta name="referrer" content="origin"><!-- NOTE: for Bing Maps -->
+    <title>山名一覧</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+    <style>
+      body {
+        margin: 0;
+      }
+      #map {
+        width: 100%;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+      }
+      .infobox-title {
+        color: red !important;
+      }
+      .infobox-body {
+        max-width: none !important;
+        max-height: none !important;
+      }
+      .infobox-info td {
+        white-space: nowrap;
+      }
+      .infobox-info td:first-child {
+        color: blue;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+    <script src="https://www.bing.com/api/maps/mapcontrol?callback=GetMap&amp;key=_YOUR_API_KEY_" async defer></script>
+    <script>
+      const param = {
+        lon: 138.9853, lat: 36.5039, zoom: 10
+      };
+
+      function GetMap() {
+        const map = new Microsoft.Maps.Map('#map', {
+          center: new Microsoft.Maps.Location(param.lat, param.lon),
+          zoom: param.zoom,
+          navigationBarMode: Microsoft.Maps.NavigationBarMode.compact
+        });
+        const sanmei = new Microsoft.Maps.Layer();
+        map.layers.insert(sanmei);
+        Microsoft.Maps.loadModule('Microsoft.Maps.GeoJson', function () {
+          Microsoft.Maps.GeoJson.readFromUrl('mt.geojson', function (shapes) {
+            shapes.forEach(function (shape) {
+              shape.setOptions({
+                icon: 'https://map.jpn.org/share/952015.png',
+                anchor: new Microsoft.Maps.Point(12, 12),
+                title: shape.metadata.name
+              });
+            });
+            sanmei.add(shapes);
+          });
+        });
+
+        function todms(deg) {
+          const ss = Math.round(deg * 3600);
+          const d = Math.floor(ss / 3600);
+          const m = ('0' + Math.floor((ss % 3600) / 60)).substr(-2);
+          const s = ('0' + ss % 60).substr(-2);
+          return d + '°' + m + '′' + s + '″';
+        }
+
+        const popup = new Microsoft.Maps.Infobox(map.getCenter(), {
+          visible: false
+        });
+        popup.setMap(map);
+        Microsoft.Maps.Events.addHandler(sanmei, 'click', function (event) {
+          const shape = event.target;
+          if (shape instanceof Microsoft.Maps.Pushpin) {
+            const loc = shape.getLocation();
+            const html = '<table><tbody><tr><td>よみ</td><td>' + shape.metadata.kana
+              + '</td></tr><tr><td>標高</td><td>' + shape.metadata.alt
+              + 'm</td></tr><tr><td>緯度</td><td>' + todms(loc.latitude)
+              + '</td></tr><tr><td>経度</td><td>' + todms(loc.longitude)
+              + '</td></tr><tr><td>ID</td><td>' + shape.id
+              + '</td></tr></tbody></table>';
+            popup.setOptions({
+              location: loc,
+              title: shape.metadata.name,
+              description: html,
+              visible: true
+            });
+          }
+        });
+      }
+    </script>
+  </body>
+</html>
