@@ -17,7 +17,7 @@ POIの例として、国土地理院のサイトで公開されている[日本�
 | Bing Maps | https://anineco.nyanta.jp/map-jpn-org/bmap_geojson.html |
 | Mapbox GL JS | https://anineco.nyanta.jp/map-jpn-org/mmap_geojson.html |
 
-なお、Google Maps、Bing Mapsのコード例を用いる場合は、HTMLファイル中の'_YOUR_API_KEY_'を各自で取得したAPI KEYに書き換える必要がある。
+なお、Google Maps、Bing Mapsのコード例を用いる場合は、HTMLファイル中の'\_YOUR_API_KEY\_'を各自で取得したAPI KEYに書き換える必要がある。
 
 次の例は、'mt.geojson'を変換して作成したMVTファイルを読み込んで、同様の表示を行う。
 
