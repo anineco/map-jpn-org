@@ -9,6 +9,8 @@ POIの例として、国土地理院のサイトで公開されている[日本�
 ## 表示例
 いずれも、'mt.geojson'を読み込み、地図画像を背景として、山の位置にアイコンと山名を表示する。アイコンをクリックすると、山名に加えてよみがなや緯度、経度、標高をポップアップで表示する。いくつかの例では、山名が密集して表示が重なる場合に間引き表示（decluttering）を行う。最新版のChrome、Edge、Firefix、SafariおよびIE11で表示できる。
 
+| JSライブラリ | 表示例 |
+| ------------- | ------------- |
 | Leaflet 1.6.0    | https://anineco.nyanta.jp/map-jpn-org/lmap_geojson.html |
 | OpenLayers 6.4.3 | https://anineco.nyanta.jp/map-jpn-org/omap_geojson.html |
 | Google Maps      | https://anineco.nyanta.jp/map-jpn-org/gmap_geojson.html |
@@ -17,6 +19,8 @@ POIの例として、国土地理院のサイトで公開されている[日本�
 
 次の例は、'mt.geojson'を変換して作成したMVTファイルを読み込んで、同様の表示を行う。
 
+| JSライブラリ | 表示例 |
+| ------------- | ------------- |
 | OpenLayers 6.4.3 | https://anineco.nyanta.jp/map-jpn-org/omap_pbf.html |
 
 ## データファイルの作成方法
