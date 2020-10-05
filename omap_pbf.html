@@ -225,7 +225,7 @@
             if (geometry.getType() !== 'Point') {
               return false;
             }
-            coordinate = geometry.getCoordinates();
+            coordinate = feature.getFlatCoordinates();
             html = getHTML(feature);
             return true;
           }

@@ -46,7 +46,10 @@ POIの例として、国土地理院のサイトで公開されている[日本�
 <         const lonlat = ol.proj.toLonLat(feature.getGeometry().getCoordinates());
 ---
 >         const lonlat = ol.proj.toLonLat(feature.getFlatCoordinates());
-
+228c228
+<             coordinate = geometry.getCoordinates();
+---
+>             coordinate = feature.getFlatCoordinates();
 ```
 
 - Mapbox GL JS
