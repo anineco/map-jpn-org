@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <title>山名一覧</title>
-    <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css">
+    <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/v2.4.0/mapbox-gl.css">
     <style>
       body {
         margin: 0;
@@ -39,12 +39,13 @@
   </head>
   <body>
     <div id="map"></div>
-    <script src="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js"></script>
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.4.0/mapbox-gl.js"></script>
     <script>
       const param = {
         lon: 138.9853, lat: 36.5039, zoom: 9
       };
 
+      mapboxgl.accessToken = '_YOUR_API_KEY_';
       const map = new mapboxgl.Map({
         container: 'map',
         style: 'https://raw.githubusercontent.com/gsi-cyberjapan/gsivectortile-mapbox-gl-js/master/std.json',
