@@ -1,0 +1,33 @@
+{
+  "name": "map-jpn-org",
+  "version": "1.0.0",
+  "description": "Mountains in Japan on the web map - components and method of construction",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint 'src/*.js'",
+    "prebuild": "rm -f js/*.*.*",
+    "build": "parcel build --no-source-maps --public-url . --dist-dir js 'src/*.js'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/anineco/map-jpn-org.git"
+  },
+  "author": "Nyanta Anineco <anineco@nifty.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/anineco/map-jpn-org/issues"
+  },
+  "homepage": "https://github.com/anineco/map-jpn-org#readme",
+  "devDependencies": {
+    "eslint": "^8.32.0",
+    "parcel": "^2.8.2"
+  },
+  "dependencies": {
+    "ol": "^7.2.2",
+    "ol-layerswitcher": "^4.1.0",
+    "ol-popup": "^5.0.0"
+  }
+}

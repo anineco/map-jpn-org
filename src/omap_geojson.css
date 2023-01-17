@@ -1,0 +1,5 @@
+@charset "UTF-8";
+@import '../node_modules/ol/ol.css';
+@import '../node_modules/ol-layerswitcher/dist/ol-layerswitcher.css';
+@import '../node_modules/ol-popup/src/ol-popup.css';
+@import 'omap_common.css';

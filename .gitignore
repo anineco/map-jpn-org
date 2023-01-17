@@ -107,3 +107,6 @@ dist
 experimental
 mt
 *.sh
+.parcel-cache/
+css/
+js/
