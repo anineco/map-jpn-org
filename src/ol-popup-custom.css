@@ -1,27 +1,20 @@
-body {
-  font-family: sans-serif;
-}
-.layer-switcher div.panel {
-  padding: 0;
-  font: 12px/1.5 "Helvetica Neue", Arial, Helvetica, sans-serif;
-}
-.layer-switcher div.panel ul {
-  margin: 0;
-  padding: 0;
-}
+@charset "UTF-8";
 .ol-popup {
   position: absolute;
   background-color: white;
   box-shadow: 0 1px 4px rgba(0,0,0,0.2);
   padding: 5px;
   border-radius: 10px;
-  border: 1px solid #cccccc;
+  border: 1px solid #ccc;
   bottom: 15px;
   left: -50px;
-  font-size: 14px;
+  font-size: 0.875rem;
   white-space: nowrap;
+  min-width: auto;
+  line-height: 1rem;
 }
-.ol-popup:after, .ol-popup:before {
+.ol-popup:after,
+.ol-popup:before {
   top: 100%;
   border: solid transparent;
   content: " ";
@@ -37,15 +30,15 @@ body {
   margin-left: -10px;
 }
 .ol-popup:before {
-  border-top-color: #cccccc;
+  border-top-color: #ccc;
   border-width: 11px;
   left: 48px;
   margin-left: -11px;
 }
 .ol-popup-content {
-  min-width: auto;
-  max-height: auto;
-  line-height: 1.15;
+  min-width: auto !important;
+  max-height: none;
+  overflow-x: visible;
 }
 .ol-popup-closer {
   text-decoration: none;
@@ -53,25 +46,24 @@ body {
   top: 2px;
   right: 8px;
   padding: 0;
-  font-size: 14px;
+  font-size: 0.875rem;
   content: "✖";
 }
 .ol-popup-closer:hover {
   cursor: pointer;
 }
-.ol-popup h2 {
+.ol-popup-content h2 {
   margin: 0;
   padding: 0 2em 0 0;
-  font-size: .875rem;
+  font-size: 0.875rem;
   font-weight: normal;
   color: red;
 }
-.ol-popup td {
-  font-size: .875rem;
+.ol-popup-content td {
   padding: 0;
   vertical-align: top;
 }
-.ol-popup td:first-child {
+.ol-popup-content td:first-child {
   padding-right: 1em;
   color: blue;
 }

@@ -1,4 +1,4 @@
-all: css/omap_geojson.css css/omap_pbf.css
+all: css/omap.css
 
 css/%.css: src/%.css
 	@cleancss -o $@ $^
