@@ -8,6 +8,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint 'src/*.js'",
+    "minify": "cleancss -o css/omap.css src/omap.css",
     "prebuild": "rm -f js/*.*.*",
     "build": "parcel build --no-source-maps --public-url . --dist-dir js 'src/*.js'"
   },
