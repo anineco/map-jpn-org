@@ -33,57 +33,59 @@
   </head>
   <body>
     <div id="map"></div>
-    <script src="https://maps.googleapis.com/maps/api/js?key=_YOUR_API_KEY_&amp;language=ja&amp;region=JP"></script>
     <script>
       const param = {
         lon: 138.9853, lat: 36.5039, zoom: 10
       };
 
-      const map = new google.maps.Map(document.getElementById('map'), {
-        center: { lat: param.lat, lng: param.lon },
-        zoom: param.zoom,
-        mapTypeId: 'terrain',
-        scaleControl: true
-      });
-
-      const icon = {
-        url: 'https://map.jpn.org/share/952015.png',
-        scaledSize: new google.maps.Size(24, 24),
-        anchor: new google.maps.Point(12, 12)
-      };
-
-      map.data.loadGeoJson('mt.geojson');
-      map.data.setStyle(function (feature) {
-        return ({
-          icon: icon,
-          title: feature.getProperty('name')
+      function initMap() {
+        const map = new google.maps.Map(document.getElementById('map'), {
+          center: { lat: param.lat, lng: param.lon },
+          zoom: param.zoom,
+          mapTypeId: 'terrain',
+          scaleControl: true
         });
-      });
-
-      function todms(deg) {
-        const ss = Math.round(deg * 3600);
-        const d = Math.floor(ss / 3600);
-        const m = ('0' + Math.floor((ss % 3600) / 60)).substr(-2);
-        const s = ('0' + ss % 60).substr(-2);
-        return d + '°' + m + '′' + s + '″';
+  
+        const icon = {
+          url: 'https://map.jpn.org/share/952015.png',
+          scaledSize: new google.maps.Size(24, 24),
+          anchor: new google.maps.Point(12, 12)
+        };
+  
+        map.data.loadGeoJson('mt.geojson');
+        map.data.setStyle(function (feature) {
+          return ({
+            icon: icon,
+            title: feature.getProperty('name')
+          });
+        });
+  
+        function todms(deg) {
+          const ss = Math.round(deg * 3600);
+          const d = Math.floor(ss / 3600);
+          const m = ('0' + Math.floor((ss % 3600) / 60)).substr(-2);
+          const s = ('0' + ss % 60).substr(-2);
+          return d + '°' + m + '′' + s + '″';
+        }
+  
+        const popup = new google.maps.InfoWindow();
+        map.data.addListener('click', function (event) {
+          const feature = event.feature;
+          const loc = feature.getGeometry().get();
+          const html = '<h2>' + feature.getProperty('name')
+            + '</h2><table><tbody><tr><td>よみ</td><td>' + feature.getProperty('kana')
+            + '</td></tr><tr><td>標高</td><td>' + feature.getProperty('alt')
+            + 'm</td></tr><tr><td>緯度</td><td>' + todms(loc.lng())
+            + '</td></tr><tr><td>経度</td><td>' + todms(loc.lat())
+            + '</td></tr><tr><td>ID</td><td>' + feature.getId()
+            + '</td></tr></tbody></table>';
+          popup.setContent(html);
+          popup.setPosition(event.latLng);
+          popup.setOptions({ pixelOffset: new google.maps.Size(0, -5) });
+          popup.open(map);
+        });
       }
-
-      const popup = new google.maps.InfoWindow();
-      map.data.addListener('click', function (event) {
-        const feature = event.feature;
-        const loc = feature.getGeometry().get();
-        const html = '<h2>' + feature.getProperty('name')
-          + '</h2><table><tbody><tr><td>よみ</td><td>' + feature.getProperty('kana')
-          + '</td></tr><tr><td>標高</td><td>' + feature.getProperty('alt')
-          + 'm</td></tr><tr><td>緯度</td><td>' + todms(loc.lng())
-          + '</td></tr><tr><td>経度</td><td>' + todms(loc.lat())
-          + '</td></tr><tr><td>ID</td><td>' + feature.getId()
-          + '</td></tr></tbody></table>';
-        popup.setContent(html);
-        popup.setPosition(event.latLng);
-        popup.setOptions({ pixelOffset: new google.maps.Size(0, -5) });
-        popup.open(map);
-      });
     </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=_YOUR_API_KEY_&language=ja&region=JP&callback=initMap" async></script>
   </body>
 </html>
