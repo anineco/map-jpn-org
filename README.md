@@ -13,20 +13,20 @@ POIの例として、国土地理院のサイトで公開されている[日本�
 
 |JSライブラリ|表示例|
 |:---|:---|
-|Leaflet|[lmap_geojson.html](https://anineco.sakura.ne.jp/docs/map-jpn-org/lmap_geojson.html)|
-|OpenLayers|[omap_geojson.html](https://anineco.sakura.ne.jp/docs/map-jpn-org/omap_geojson.html)|
-|Google Maps API|[gmap_geojson.html](https://anineco.sakura.ne.jp/docs/map-jpn-org/gmap_geojson.html)|
-|Bing Maps API|[bmap_geojson.html](https://anineco.sakura.ne.jp/docs/map-jpn-org/bmap_geojson.html)|
-|Mapbox GL JS|[mmap_geojson.html](https://anineco.sakura.ne.jp/docs/map-jpn-org/mmap_geojson.html)|
+|Leaflet|[lmap_geojson.html](https://anineco.nyanta.jp/map-jpn-org/lmap_geojson.html)|
+|OpenLayers|[omap_geojson.html](https://anineco.nyanta.jp/map-jpn-org/omap_geojson.html)|
+|Google Maps API|[gmap_geojson.html](https://anineco.nyanta.jp/map-jpn-org/gmap_geojson.html)|
+|Bing Maps API|[bmap_geojson.html](https://anineco.nyanta.jp/map-jpn-org/bmap_geojson.html)|
+|Mapbox GL JS|[mmap_geojson.html](https://anineco.nyanta.jp/map-jpn-org/mmap_geojson.html)|
 
 注意：Google Maps API、Bing Maps API、Mapbox GL JSのサンプルコードを用いる場合は、HTMLファイル中の'\_YOUR_API_KEY\_'を各自で取得したAPI KEYに書き換える必要がある。
 
-次のサンプルコードは、`mt.geojson`を変換して作成したMVTファイル（`https://anineco.sakura.ne.jp/docs/map-jpn-org/mt/{z}/{x}/{y}.pbf`）を読み込んで、同様の表示を行う。
+次のサンプルコードは、`mt.geojson`を変換して作成したMVTファイル（`https://anineco.nyanta.jp/map-jpn-org/mt/{z}/{x}/{y}.pbf`）を読み込んで、同様の表示を行う。
 
 |JSライブラリ|表示例|
 |:---|:---|
-|OpenLayers|[omap_pbf.html](https://anineco.sakura.ne.jp/docs/map-jpn-org/omap_pbf.html)|
-|Mapbox GL JS|[mmap_pbf.html](https://anineco.sakura.ne.jp/docs/map-jpn-org/mmap_pbf.html)|
+|OpenLayers|[omap_pbf.html](https://anineco.nyanta.jp/map-jpn-org/omap_pbf.html)|
+|Mapbox GL JS|[mmap_pbf.html](https://anineco.nyanta.jp/map-jpn-org/mmap_pbf.html)|
 
 なお、GeoJSONファイル読み込みをMVTファイル読み込みに変更するための差分は以下の通り。どちらもごく一部の変更だけで済む。
 
@@ -59,7 +59,7 @@ POIの例として、国土地理院のサイトで公開されている[日本�
 <           'data': 'mt.geojson'
 ---
 >           'type': 'vector',
->           'tiles': [ 'https://anineco.sakura.ne.jp/docs/map-jpn-org/mt/{z}/{x}/{y}.pbf' ],
+>           'tiles': [ 'https://anineco.nyanta.jp/map-jpn-org/mt/{z}/{x}/{y}.pbf' ],
 >           'maxzoom': 14
 78a80
 >           'source-layer': 'mt',
