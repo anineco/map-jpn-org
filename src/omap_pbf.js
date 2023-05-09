@@ -70,7 +70,8 @@ const icon = new Icon({
   anchor: [12, 12],
   anchorXUnits: 'pixels',
   anchorYUnits: 'pixels',
-  crossOrigin: 'Anonymous'
+  crossOrigin: 'Anonymous',
+  declutterMode: 'none'
 });
 
 function styleFunction(feature) {
