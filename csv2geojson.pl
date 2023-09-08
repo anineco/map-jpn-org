@@ -24,7 +24,7 @@ my @sosho = (
 sub dms2deg {
   my $dms = shift;
   $dms =~ /^(\d+)(\d\d)(\d\d)$/;
-  return sprintf "%.6f", ($3 / 60 + $2) / 60 + $1;
+  return sprintf "%.4f", ($3 / 60 + $2) / 60 + $1;
 }
 
 print '{"type":"FeatureCollection","features":[', "\n";
