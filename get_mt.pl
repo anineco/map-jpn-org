@@ -5,9 +5,24 @@ use warnings;
 use utf8;
 use open ':utf8';
 use open ':std';
-#use URI;
+use URI;
 use Web::Scraper;
-use File::Slurp;
+use LWP::UserAgent;
+
+# FIXED:
+# SSL connect attempt failed error:0A000152:SSL routines::unsafe legacy renegotiation disabled
+
+my $ua = LWP::UserAgent->new(
+  ssl_opts => {
+    verify_hostname => 0,
+    SSL_create_ctx_callback => sub {
+      my $ctx = shift;
+      # 0x00040000 SSL_OP_ALLOW_UNSAFE_LEGACY_RENEGOTIATION
+      Net::SSLeay::CTX_set_options($ctx, 0x40000);
+      Net::SSLeay::CTX_set_security_level($ctx, 1);
+    },
+  }
+);
 
 my $items = scraper {
   process 'table tr', 'items[]' => scraper {
@@ -17,6 +32,7 @@ my $items = scraper {
     process 'td:nth-child(7)', 'note' => 'TEXT';
   };
 };
+$items->user_agent($ua);
 
 my %gaiji = (
   'やくらいさん' => '薬萊山',
@@ -26,10 +42,7 @@ my %gaiji = (
   'びょうぶざん' => '屛風山'
 );
 
-my $uri = 'https://www.gsi.go.jp/kihonjohochousa/kihonjohochousa41140.html';
-my $html = read_file('kihonjohochousa41140.html', { binmode => ':encoding(UTF-8)' });
-
-my $res = $items->scrape($html, $uri);
+my $res = $items->scrape(URI->new('https://www.gsi.go.jp/kihonjohochousa/kihonjohochousa41140.html'));
 my $id = 0;
 for my $item (@{$res->{items}}) {
   my $s = $item->{name};
