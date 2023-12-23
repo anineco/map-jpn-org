@@ -5,8 +5,9 @@ use warnings;
 use utf8;
 use open ':utf8';
 use open ':std';
-use URI;
+#use URI;
 use Web::Scraper;
+use File::Slurp;
 
 my $items = scraper {
   process 'table tr', 'items[]' => scraper {
@@ -25,8 +26,10 @@ my %gaiji = (
   'びょうぶざん' => '屛風山'
 );
 
-my $uri = URI->new('https://www.gsi.go.jp/kihonjohochousa/kihonjohochousa41140.html');
-my $res = $items->scrape($uri);
+my $uri = 'https://www.gsi.go.jp/kihonjohochousa/kihonjohochousa41140.html';
+my $html = read_file('kihonjohochousa41140.html', { binmode => ':encoding(UTF-8)' });
+
+my $res = $items->scrape($html, $uri);
 my $id = 0;
 for my $item (@{$res->{items}}) {
   my $s = $item->{name};
@@ -77,7 +80,7 @@ for my $item (@{$res->{items}}) {
 
   $item->{alt} =~ m%^(\d+)m$% or die;
   my $alt = $1;
-  $item->{pos} =~ m%^(\d+)度(\d+)分(\d+)秒(\d+)度(\d+)分(\d+)秒$% or die;
+  $item->{pos} =~ m%^(\d+)度(\d+)分(\d+)秒\s*(\d+)度(\d+)分(\d+)秒$% or die;
   my $lat = $1 . $2 . $3;
   my $lon = $4 . $5 . $6;
   my $note = '"' . $item->{note} . '"';
